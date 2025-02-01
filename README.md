@@ -38,3 +38,5 @@
 Nakartha is designed for transparency, simplicity, and efficiency. Whether you're splitting rent, managing a travel fund, or tracking expenses with your team, Nakartha makes it effortless!
 
 🚀 Get started today and take control of your shared expenses!
+
+hello
