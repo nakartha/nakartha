@@ -1,0 +1,17 @@
+name: Enforce Git Flow Branch Naming
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Branch Name
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|release)\/.+$ ]]; then
+            echo "❌ Branch name does not follow Git Flow naming conventions!"
+            exit 1
+          fi
