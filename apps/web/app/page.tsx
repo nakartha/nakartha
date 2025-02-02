@@ -1,4 +1,6 @@
-import React from "react";
+'use client'
+
+import React, { useState } from "react";
 import {
   Github,
   ArrowRight,
@@ -8,6 +10,8 @@ import {
   BarChart3,
   Shield,
   Star,
+  Menu,
+  X
 } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -18,6 +22,13 @@ import {
   CardDescription,
 } from "@workspace/ui/components/card";
 import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@workspace/ui/components/sheet";
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -25,6 +36,15 @@ import {
 } from "@workspace/ui/components/accordion";
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { href: "#features", label: "Features" },
+    { href: "#how-it-works", label: "How It Works" },
+    { href: "#testimonials", label: "Testimonials" },
+    { href: "#faq", label: "FAQ" },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -37,28 +57,64 @@ function App() {
                 nakartha
               </span>
             </div>
+            
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <Button variant="ghost" asChild>
-                <a href="#features">Features</a>
-              </Button>
-              <Button variant="ghost" asChild>
-                <a href="#how-it-works">How It Works</a>
-              </Button>
-              <Button variant="ghost" asChild>
-                <a href="#testimonials">Testimonials</a>
-              </Button>
-              <Button variant="ghost" asChild>
-                <a href="#faq">FAQ</a>
-              </Button>
+              {navItems.map((item) => (
+                <Button key={item.href} variant="ghost" asChild>
+                  <a href={item.href}>{item.label}</a>
+                </Button>
+              ))}
               <Button variant="outline" asChild>
-                <a
-                  href="https://github.com/nakartha"
-                  className="flex items-center"
-                >
+                <a href="https://github.com/nakartha" className="flex items-center">
                   <Github className="h-5 w-5 mr-2" />
                   GitHub
                 </a>
               </Button>
+            </div>
+
+            {/* Mobile Navigation */}
+            <div className="md:hidden">
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[300px]">
+                  <SheetHeader>
+                    <SheetTitle>
+                      <div className="flex items-center">
+                        <Wallet className="h-8 w-8 text-primary" />
+                        <span className="ml-2 text-xl font-bold">nakartha</span>
+                      </div>
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-4 mt-8">
+                    {navItems.map((item) => (
+                      <Button
+                        key={item.href}
+                        variant="ghost"
+                        className="w-full justify-start"
+                        asChild
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <a href={item.href}>{item.label}</a>
+                      </Button>
+                    ))}
+                    <Button variant="outline" asChild className="w-full justify-start">
+                      <a
+                        href="https://github.com/nakartha"
+                        className="flex items-center"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <Github className="h-5 w-5 mr-2" />
+                        GitHub
+                      </a>
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
