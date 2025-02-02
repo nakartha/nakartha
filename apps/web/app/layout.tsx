@@ -23,7 +23,6 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
       >
-        <p>Ajay Talaviya</p>
         <Providers>{children}</Providers>
       </body>
     </html>
