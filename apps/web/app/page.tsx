@@ -23,8 +23,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@workspace/ui/components/accordion";
+import { trpc } from "@/lib/trpc";
 
 function App() {
+  const que = trpc.hello.useQuery({ name: "Jenil" });
+  console.log(que);
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
