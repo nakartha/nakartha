@@ -1,0 +1,15 @@
+{
+  "extends": "@workspace/typescript-config/react-library.json",
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Node"
+  }
+}
