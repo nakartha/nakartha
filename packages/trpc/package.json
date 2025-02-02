@@ -1,0 +1,22 @@
+{
+  "name": "@workspace/trpc",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.17.15",
+    "@trpc/client": "11.0.0-next-beta.222",
+    "@trpc/next": "11.0.0-next-beta.222",
+    "@trpc/react-query": "11.0.0-next-beta.222",
+    "@trpc/server": "11.0.0-next-beta.222",
+    "superjson": "2.2.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}
