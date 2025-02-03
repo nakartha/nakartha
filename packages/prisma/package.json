@@ -1,0 +1,25 @@
+{
+  "name": "@workspace/prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "db-seed": "pnpm prisma db seed",
+    "db-studio": "pnpm prisma studio"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.3.0",
+    "prisma": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "prisma": {
+    "seed": "ts-node --transpile-only ./seed.ts"
+  }
+}

@@ -3,6 +3,14 @@
   "include": [
     "."
   ],
+  "paths": {
+    "@workspace/prisma": [
+      "../prisma"
+    ],
+    "@workspace/prisma/*": [
+      "../prisma/*"
+    ]
+  },
   "exclude": [
     "node_modules",
     "dist"

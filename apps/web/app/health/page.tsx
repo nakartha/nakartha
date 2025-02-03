@@ -16,7 +16,10 @@ import {
 } from "@workspace/ui/components/alert";
 
 export default function BeautifulPage() {
-  const { data, isLoading, error } = trpc.hello.useQuery({ text: "Jenil" });
+  const { data, isLoading, error } = trpc.hello.useQuery({
+    text: "Jenil",
+    id: 1,
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center p-4">

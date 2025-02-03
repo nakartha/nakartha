@@ -1,16 +1,21 @@
 import { z } from "zod";
 import { baseProcedure, createTRPCRouter } from "..";
+import prisma from "@workspace/prisma";
 
 export const appRouter = createTRPCRouter({
   hello: baseProcedure
     .input(
       z.object({
         text: z.string(),
+        id: z.number(),
       })
     )
-    .query((opts) => {
+    .query(async (opts) => {
+      const user = await prisma.user.findUnique({
+        where: { pk_User_UserID: opts.input.id },
+      });
       return {
-        greeting: `hello ${opts.input.text}`,
+        greeting: `hello ${user?.User_Email}`,
       };
     }),
 });
