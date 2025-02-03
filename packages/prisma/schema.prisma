@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  pk_User_UserID    Int                @id @default(autoincrement())
+  User_Name         String
+  User_Email        String             @unique
+  User_Password     String
+  User_Group        GroupMember[]
+  User_Transactions Transaction[]      @relation("PayerTransactions")
+  User_CreatedAt    DateTime           @default(now())
+  TransactionSplit  TransactionSplit[]
+}
+
+model Group {
+  pk_Group_GroupID   Int           @id @default(autoincrement())
+  Group_Name         String
+  Group_Type         String // e.g., Friend, Food, Trip, etc.
+  Group_Members      GroupMember[]
+  Group_Transactions Transaction[]
+  Group_CreatedAt    DateTime      @default(now())
+}
+
+model GroupMember {
+  pk_GroupMember_GroupMemberID Int @id @default(autoincrement())
+  fk_GroupMember_UserID        Int
+  fk_GroupMember_GroupId       Int
+
+  user  User  @relation(fields: [fk_GroupMember_UserID], references: [pk_User_UserID])
+  group Group @relation(fields: [fk_GroupMember_GroupId], references: [pk_Group_GroupID])
+
+  @@unique([fk_GroupMember_UserID, fk_GroupMember_GroupId]) // Prevent duplicate memberships
+}
+
+model Transaction {
+  pk_Transaction_TransactionID Int                @id @default(autoincrement())
+  Transaction_Description      String
+  Transaction_Amount           Float
+  fk_Transaction_PayerId       Int
+  fk_Transaction_GroupId       Int
+  Transaction_Splits           TransactionSplit[]
+
+  payer     User     @relation("PayerTransactions", fields: [fk_Transaction_PayerId], references: [pk_User_UserID])
+  group     Group    @relation(fields: [fk_Transaction_GroupId], references: [pk_Group_GroupID])
+  createdAt DateTime @default(now())
+}
+
+model TransactionSplit {
+  pk_TransactionSplit_TransactionSplitID Int   @id @default(autoincrement())
+  fk_TransactionSplit_TransactionId      Int
+  fk_TransactionSplit_UserId             Int // User who owes the amount
+  TransactionSplit_Amount                Float // Amount this user owes
+
+  transaction Transaction @relation(fields: [fk_TransactionSplit_TransactionId], references: [pk_Transaction_TransactionID])
+  user        User        @relation(fields: [fk_TransactionSplit_UserId], references: [pk_User_UserID])
+
+  @@unique([fk_TransactionSplit_TransactionId, fk_TransactionSplit_UserId]) // Prevent duplicate splits for the same user
+}
