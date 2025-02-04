@@ -1,8 +1,7 @@
 {
   "extends": "@workspace/typescript-config/react-library.json",
   "include": [
-    ".",
-    "../auth/src/context/context.ts"
+    "."
   ],
   "paths": {
     "@workspace/prisma": [
@@ -10,12 +9,6 @@
     ],
     "@workspace/prisma/*": [
       "../prisma/*"
-    ],
-    "@workspace/auth": [
-      "../auth"
-    ],
-    "@workspace/auth/*": [
-      "../auth/*"
     ]
   },
   "exclude": [
@@ -25,6 +18,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "module": "ESNext",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
   }
 }

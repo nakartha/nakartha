@@ -11,6 +11,9 @@
       ],
       "@workspace/trpc/*": [
         "../../packages/trpc/src/*"
+      ],
+      "@workspace/auth/*": [
+        "../../packages/auth/src/*"
       ]
     },
     "plugins": [

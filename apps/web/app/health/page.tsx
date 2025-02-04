@@ -14,8 +14,10 @@ import {
   AlertDescription,
   AlertTitle,
 } from "@workspace/ui/components/alert";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function BeautifulPage() {
+  const { data: session } = useSession();
   const { data, isLoading, error } = trpc.hello.useQuery({
     text: "Jenil",
     id: 1,
@@ -33,6 +35,18 @@ export default function BeautifulPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <div className="p-6">
+            {session ? (
+              <>
+                <h1>Welcome, {session.user?.email}</h1>
+                <button onClick={() => signOut()}>Sign Out</button>
+              </>
+            ) : (
+              <button onClick={() => signIn("google")}>
+                Sign In with Google
+              </button>
+            )}
+          </div>
           {isLoading ? (
             <Skeleton className="h-8 w-full" />
           ) : error ? (
