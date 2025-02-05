@@ -8,7 +8,7 @@
     "db-studio": "pnpm prisma studio"
   },
   "keywords": [],
-  "author": "",
+  "author": "jenil",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.3.0",
