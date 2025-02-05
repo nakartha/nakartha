@@ -6,7 +6,9 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prisma-generate": "cd packages/prisma && npx prisma generate",
+    "clean-modules": "rm -rf **/node_modules"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
