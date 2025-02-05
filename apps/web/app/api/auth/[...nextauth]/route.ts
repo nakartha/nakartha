@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import { authOptions } from "@workspace/auth"; // Adjust based on your turborepo setup
+import { authOptions } from "@workspace/auth";
 
-const handler = NextAuth(authOptions); // ✅ No more errors
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
