@@ -188,6 +188,9 @@ importers:
       '@workspace/auth':
         specifier: workspace:*
         version: link:../auth
+      '@workspace/prisma':
+        specifier: workspace:*
+        version: link:../prisma
       client-only:
         specifier: ^0.0.1
         version: 0.0.1

@@ -14,10 +14,5 @@
   "exclude": [
     "node_modules",
     "dist"
-  ],
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-  }
+  ]
 }
