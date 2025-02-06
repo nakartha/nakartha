@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^6.3.0",
     "@tanstack/react-query": "^5.66.0",
     "@trpc/client": "11.0.0-rc.730",
     "@trpc/react-query": "11.0.0-rc.730",
