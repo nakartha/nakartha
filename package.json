@@ -9,6 +9,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prisma-generate": "cd packages/prisma && npx prisma generate",
     "clean-modules": "rm -rf **/node_modules"
+    "mobile": "cd apps/mobile && npm start"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
