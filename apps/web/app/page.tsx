@@ -367,7 +367,7 @@ function App() {
                 nakartha
               </span>
             </div>
-            <div className="flex space-x-6">
+            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
               <Button
                 variant="link"
                 asChild

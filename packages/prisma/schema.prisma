@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  profileImage String?
+  email        String   @unique
+  name         String
+  password     String
+  groups       GroupUser[]
+  transactions TransactionUser[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Group {
+  id           String       @id @default(uuid())
+  name         String
+  profileImage String?
+  users        GroupUser[]
+  transactions Transaction[] // Group links to transactions directly
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model GroupUser {
+  userId   Int
+  groupId  String
+  user     User   @relation(fields: [userId], references: [id])
+  group    Group  @relation(fields: [groupId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, groupId]) // Composite primary key
+}
+
+enum TransactionCategory {
+  RENT
+  UTILITIES
+  GROCERIES
+  TRANSPORTATION
+  HEALTHCARE
+  INSURANCE
+  EDUCATION
+  FOOD
+  TRAVEL
+  SHOPPING
+  ENTERTAINMENT
+  SUBSCRIPTIONS
+  GYM
+  SPORTS
+  SALARY
+  INVESTMENT
+  LOAN_PAYMENT
+  TAXES
+  SAVINGS
+  DEBT_PAYMENT
+  GIFTS
+  HOUSEHOLD
+  PETS
+  PERSONAL_CARE
+  OTHER
+}
+
+model Transaction {
+  id          Int                  @id @default(autoincrement())
+  amount      Float
+  description String
+  category    TransactionCategory
+  groupId     String               // Link directly to Group
+  group       Group                @relation(fields: [groupId], references: [id])
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  users       TransactionUser[]    // Join table to link users with the transaction
+}
+
+model TransactionUser {
+  userId        Int
+  transactionId Int
+  paidAmount    Float       @default(0)  // Amount paid by the user
+  owedAmount    Float       @default(0)  // Amount user owes
+  user          User        @relation(fields: [userId], references: [id])
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+
+  @@id([userId, transactionId]) // Composite primary key
+}

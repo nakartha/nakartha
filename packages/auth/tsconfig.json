@@ -1,0 +1,19 @@
+{
+  "extends": "@workspace/typescript-config/react-library.json",
+  "include": [
+    "."
+  ],
+  "paths": {
+    "@workspace/prisma": [
+      "../prisma"
+    ],
+    "@workspace/prisma/*": [
+      "../prisma/*"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "compilerOptions": {}
+}
