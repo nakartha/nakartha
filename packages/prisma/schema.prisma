@@ -8,57 +8,85 @@ datasource db {
 }
 
 model User {
-  pk_User_UserID    Int                @id @default(autoincrement())
-  User_Name         String
-  User_Email        String             @unique
-  User_Password     String
-  User_Group        GroupMember[]
-  User_Transactions Transaction[]      @relation("PayerTransactions")
-  User_CreatedAt    DateTime           @default(now())
-  TransactionSplit  TransactionSplit[]
+  id           Int      @id @default(autoincrement())
+  profileImage String?
+  email        String   @unique
+  name         String
+  password     String
+  groups       GroupUser[]
+  transactions TransactionUser[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Group {
-  pk_Group_GroupID   Int           @id @default(autoincrement())
-  Group_Name         String
-  Group_Type         String // e.g., Friend, Food, Trip, etc.
-  Group_Members      GroupMember[]
-  Group_Transactions Transaction[]
-  Group_CreatedAt    DateTime      @default(now())
+  id           String       @id @default(uuid())
+  name         String
+  profileImage String?
+  users        GroupUser[]
+  transactions Transaction[] // Group links to transactions directly
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
 
-model GroupMember {
-  pk_GroupMember_GroupMemberID Int @id @default(autoincrement())
-  fk_GroupMember_UserID        Int
-  fk_GroupMember_GroupId       Int
+model GroupUser {
+  userId   Int
+  groupId  String
+  user     User   @relation(fields: [userId], references: [id])
+  group    Group  @relation(fields: [groupId], references: [id])
 
-  user  User  @relation(fields: [fk_GroupMember_UserID], references: [pk_User_UserID])
-  group Group @relation(fields: [fk_GroupMember_GroupId], references: [pk_Group_GroupID])
+  createdAt DateTime @default(now())
 
-  @@unique([fk_GroupMember_UserID, fk_GroupMember_GroupId]) // Prevent duplicate memberships
+  @@id([userId, groupId]) // Composite primary key
+}
+
+enum TransactionCategory {
+  RENT
+  UTILITIES
+  GROCERIES
+  TRANSPORTATION
+  HEALTHCARE
+  INSURANCE
+  EDUCATION
+  FOOD
+  TRAVEL
+  SHOPPING
+  ENTERTAINMENT
+  SUBSCRIPTIONS
+  GYM
+  SPORTS
+  SALARY
+  INVESTMENT
+  LOAN_PAYMENT
+  TAXES
+  SAVINGS
+  DEBT_PAYMENT
+  GIFTS
+  HOUSEHOLD
+  PETS
+  PERSONAL_CARE
+  OTHER
 }
 
 model Transaction {
-  pk_Transaction_TransactionID Int                @id @default(autoincrement())
-  Transaction_Description      String
-  Transaction_Amount           Float
-  fk_Transaction_PayerId       Int
-  fk_Transaction_GroupId       Int
-  Transaction_Splits           TransactionSplit[]
-
-  payer     User     @relation("PayerTransactions", fields: [fk_Transaction_PayerId], references: [pk_User_UserID])
-  group     Group    @relation(fields: [fk_Transaction_GroupId], references: [pk_Group_GroupID])
-  createdAt DateTime @default(now())
+  id          Int                  @id @default(autoincrement())
+  amount      Float
+  description String
+  category    TransactionCategory
+  groupId     String               // Link directly to Group
+  group       Group                @relation(fields: [groupId], references: [id])
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  users       TransactionUser[]    // Join table to link users with the transaction
 }
 
-model TransactionSplit {
-  pk_TransactionSplit_TransactionSplitID Int   @id @default(autoincrement())
-  fk_TransactionSplit_TransactionId      Int
-  fk_TransactionSplit_UserId             Int // User who owes the amount
-  TransactionSplit_Amount                Float // Amount this user owes
+model TransactionUser {
+  userId        Int
+  transactionId Int
+  paidAmount    Float       @default(0)  // Amount paid by the user
+  owedAmount    Float       @default(0)  // Amount user owes
+  user          User        @relation(fields: [userId], references: [id])
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
 
-  transaction Transaction @relation(fields: [fk_TransactionSplit_TransactionId], references: [pk_Transaction_TransactionID])
-  user        User        @relation(fields: [fk_TransactionSplit_UserId], references: [pk_User_UserID])
-
-  @@unique([fk_TransactionSplit_TransactionId, fk_TransactionSplit_UserId]) // Prevent duplicate splits for the same user
+  @@id([userId, transactionId]) // Composite primary key
 }
