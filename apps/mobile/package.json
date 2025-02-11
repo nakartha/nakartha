@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@babel/runtime": "^7.26.7",
     "expo": "~52.0.30",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
