@@ -1,40 +1,35 @@
 # Nakartha
 
-**Nakartha** is an open-source, next-generation expense-sharing platform designed to be a powerful alternative to Splitwise. It enables friends, roommates, and teams to track shared expenses effortlessly while providing advanced analytics and transparency. Our goal is to make financial collaboration seamless, intuitive, and completely free for anyone to self-host.
+**Nakartha** is an open-source expense-sharing platform designed as a powerful alternative to Splitwise. It helps friends, roommates, and teams track shared expenses effortlessly while offering advanced analytics and transparency.
 
-💬 Join the conversation and contribute to the project on our [Discord Server](https://discord.gg/9GXtUBTZ)!
-
----
+💬 Join our community on [Discord](https://discord.gg/eTpNmrm3) and contribute to the project!
 
 ## ✨ Why Nakartha?
-- **🚀 Open-Source & Self-Hostable**: Fully transparent, customizable, and free to use.
-- **⚡ Advanced Analytics**: Gain insights into your spending patterns and shared expenses.
-- **💰 Smart Settlements**: Optimized expense balancing to reduce unnecessary transactions.
-- **🌍 Multi-Currency Support**: Handle international group expenses with ease.
-- **🔗 Splitwise Import**: Effortlessly migrate your existing expenses from Splitwise.
-- **📱 Cross-Platform**: Available on Web, iOS, and Android.
 
----
+- **🚀 Open-Source & Self-Hostable** – Transparent, customizable, and free to use.
+- **⚡ Smart Settlements** – Optimized expense balancing to reduce transactions.
+  <!-- - **🌍 Multi-Currency Support** – Manage international group expenses. -->
+  <!-- - **🔗 Splitwise Import** – Easily migrate your existing expenses. -->
+- **📱 Cross-Platform** – Available on Web, iOS, and Android.
 
 ## 🚀 Features
-- **Easy Expense Splitting**: Quickly divide expenses among friends, colleagues, or roommates.
-- **Real-time Updates**: Track payments, debts, and settlements instantly.
-- **Multi-platform**: Accessible on web and mobile apps (iOS & Android).
-- **Custom Expense Categories**: Organize expenses better with personalized categories.
-- **Group & Individual Reports**: Understand your financial habits with insightful visual reports.
-- **Recurring Expenses**: Automate monthly expenses like rent, bills, and subscriptions.
 
----
+- **Easy Expense Splitting** – Divide expenses among groups effortlessly.
+- **Real-Time Updates** – Track payments, debts, and settlements instantly.
+- **Custom Categories** – Organize expenses with personalized categories.
+- **Recurring Expenses** – Automate bills, rent, and subscriptions.
+- **Insightful Reports** – Analyze spending with visual reports.
 
 ## 🛠️ Tech Stack
-- **Frontend**: React Native for seamless cross-platform mobile experience.
-- **Backend**: GoLang for high performance and scalability.
-- **Database**: PostgreSQL for reliable and secure data management.
-- **Authentication**: JWT-based secure login with Google OAuth support.
-- **Hosting**: Easily deploy on self-hosted solutions like Docker, Kubernetes, or cloud providers.
 
----
+- **Frontend**: React, React-native
+- **Backend**: tRPC
+- **Database**: PostgreSQL (Prisma ORM)
+- **Authentication**: Next-Auth (Google Provider)
+<!-- - **Hosting**: Self-host via Docker, Kubernetes, or cloud providers. -->
 
-Nakartha is designed for transparency, simplicity, and efficiency. Whether you're splitting rent, managing a travel fund, or tracking expenses with your team, Nakartha makes it effortless!
+## 🤝 Contributing
 
-🚀 Get started today and take control of your shared expenses!
+We welcome contributions! Check out our [Contributing Guidelines](https://github.com/nakartha/nakartha/blob/develop/apps/web/CONTRIBUTING.md) to get started.
+
+🚀 Get started today and simplify expense tracking with Nakartha!
