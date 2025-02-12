@@ -1,14 +1,8 @@
-import Dashboard from "@workspace/ui/components/dashboard/Dashboard";
 import React from "react";
+import { Profile } from "./profile";
 
-type Props = {};
-
-function page({}: Props) {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
+function Page() {
+  return <Profile />;
 }
 
-export default page;
+export default Page;
