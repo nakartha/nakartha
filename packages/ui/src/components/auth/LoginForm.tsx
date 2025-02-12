@@ -10,11 +10,9 @@ import {
   CardTitle,
 } from "../card";
 import { Button } from "../button";
-import { Label } from "../label";
-import { Input } from "../input";
 import { Icons } from "../Icons";
 import { LoaderCircle } from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export function LoginForm({
   className,
@@ -51,9 +49,11 @@ export function LoginForm({
                     variant="outline"
                     type="button"
                     disabled={isLoading}
-                    onClick={() =>
-                      signIn("google", { callbackUrl: "/dashboard" })
-                    }
+                    onClick={async () => {
+                      const data = await signIn("google", {
+                        callbackUrl: "/dashboard",
+                      });
+                    }}
                   >
                     {isLoading ? (
                       <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />

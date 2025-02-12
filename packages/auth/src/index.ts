@@ -1,7 +1,7 @@
 import { AuthOptions, Session, User, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import prisma from "@workspace/prisma";
 import { JWT } from "next-auth/jwt";
+import prisma from "@workspace/prisma";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -20,16 +20,17 @@ export const authOptions: AuthOptions = {
 
         // Check if user exists in DB
         let existingUser = await prisma.user.findUnique({
-          where: { User_Email: token.email },
+          where: { email: token.email },
         });
 
         // If user doesn't exist, create a new one
         if (!existingUser) {
           existingUser = await prisma.user.create({
             data: {
-              User_Email: token.email || "",
-              User_Name: token.name || "Anonymous",
-              User_Password: "",
+              email: token.email || "",
+              name: token.name || "Anonymous",
+              profileImage: token.picture,
+              password: "",
             },
           });
         }
@@ -53,15 +54,14 @@ export const authOptions: AuthOptions = {
 
 export type Context = {
   session: Session | null;
-  prisma: typeof prisma;
 };
 
 export const createContext = async (req: Request): Promise<Context> => {
   try {
     const session = await getServerSession(authOptions);
-    return { session, prisma };
+    return { session };
   } catch (error) {
     console.error("Error in createContext:", error);
-    return { session: null, prisma };
+    return { session: null };
   }
 };
