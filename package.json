@@ -6,7 +6,11 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "migrate:dev": "pnpm -F @workspace/db prisma:migrate:dev",
+    "migrate:deploy": "pnpm -F @workspace/db prisma:migrate:deploy",
+    "generate": "pnpm -F @workspace/db prisma:generate",
+    "db:studio": "pnpm -F @workspace/db prisma:studio"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
