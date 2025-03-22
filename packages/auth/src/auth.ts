@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import prisma from "@workspace/db";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -33,6 +34,29 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt", // Use JWT for session management
   },
   callbacks: {
+    async signIn({ user, account }) {
+      // Handle Google sign-in
+      if (account?.provider === "google") {
+        let dbUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+        });
+
+        if (!dbUser) {
+          // New Google user: create them
+          dbUser = await prisma.user.create({
+            data: {
+              email: user.email!,
+              name: user.name || user.email!.split("@")[0],
+              // No password for Google users
+            },
+          });
+        }
+
+        // Update user ID for the session
+        user.id = dbUser.id.toString();
+      }
+      return true; // Allow sign-in
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
