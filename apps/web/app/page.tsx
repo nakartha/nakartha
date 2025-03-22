@@ -1,12 +1,23 @@
-import { Button } from "@workspace/ui/components/button"
+"use client";
 
-export default function Page() {
-  return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">Hello World</h1>
-        <Button size="sm">Button</Button>
+import { Button } from "@workspace/ui/components/button";
+import { signIn, signOut, useSession } from "next-auth/react";
+
+export default function Home() {
+  const { data: session } = useSession();
+
+  if (session) {
+    return (
+      <div>
+        <p>Welcome, {session.user?.name}!</p>
+        <Button onClick={() => signOut()}>Sign out</Button>
       </div>
+    );
+  }
+
+  return (
+    <div>
+      <Button onClick={() => signIn("google")}>Sign in with Google</Button>
     </div>
-  )
+  );
 }
