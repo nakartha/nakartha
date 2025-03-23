@@ -16,7 +16,7 @@
     "@trpc/client": "^11.0.0",
     "@trpc/next": "^11.0.0",
     "@trpc/react-query": "^11.0.0",
-    "@workspace/api": "workspace:*",
+    "@workspace/trpc": "workspace:*",
     "@workspace/auth": "workspace:*",
     "@workspace/ui": "workspace:*",
     "lucide-react": "^0.475.0",

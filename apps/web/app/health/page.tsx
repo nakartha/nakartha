@@ -1,6 +1,6 @@
 "use client";
 
-import { trpc } from "@workspace/api/src/client";
+import { trpc } from "@workspace/trpc/src/client";
 import ProtectedPage from "@workspace/ui/components/custom/protected/protected-page";
 import { useSession } from "next-auth/react";
 

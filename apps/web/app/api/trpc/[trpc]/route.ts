@@ -1,4 +1,4 @@
-import { createTRPCHandler } from "@workspace/api";
+import { createTRPCHandler } from "@workspace/trpc";
 import { NextRequest } from "next/server";
 
 // Handle GET requests

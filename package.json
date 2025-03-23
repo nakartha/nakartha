@@ -10,7 +10,12 @@
     "migrate:dev": "pnpm -F @workspace/db prisma:migrate:dev",
     "migrate:deploy": "pnpm -F @workspace/db prisma:migrate:deploy",
     "generate": "pnpm -F @workspace/db prisma:generate",
-    "db:studio": "pnpm -F @workspace/db prisma:studio"
+    "db:studio": "pnpm -F @workspace/db prisma:studio",
+    "clean:modules": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
+    "clean:store": "pnpm store prune",
+    "clean": "pnpm run clean:modules && pnpm run clean:store",
+    "reset": "pnpm run clean && rm -rf node_modules pnpm-lock.yaml && pnpm install",
+    "install:clean": "pnpm run reset"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
