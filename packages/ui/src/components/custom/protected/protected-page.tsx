@@ -15,7 +15,7 @@ const ProtectedPage = ({ children }: { children: React.ReactNode }) => {
   }, [status, redirectToLogin]);
 
   if (status === "loading") {
-    return <div>Loading...</div>; // Optional loading state
+    return <div>Loading...</div>;
   }
 
   if (status === "authenticated") {
