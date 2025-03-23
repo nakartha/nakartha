@@ -1,10 +1,21 @@
 "use client";
 
-import { trpc } from "@/lib/trpc";
+import { trpc } from "@workspace/api/src/client";
+import ProtectedPage from "@workspace/ui/components/custom/protected/protected-page";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
-  const { data, isLoading } = trpc.userList.useQuery("Jenil");
+  const { status } = useSession();
+
+  const { data, isLoading } = trpc.user.protect.useQuery(undefined, {
+    enabled: status === "authenticated",
+  });
 
   if (isLoading) return <div>Loading...</div>;
-  return <div>{data}</div>;
+
+  return (
+    <div>
+      <ProtectedPage>{data}</ProtectedPage>
+    </div>
+  );
 }

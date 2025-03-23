@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "@workspace/db";
 import { compare, hash } from "bcryptjs";
+import { getServerSession } from "next-auth/next";
 
 export async function signup(params: {
   email: string;
@@ -185,3 +186,7 @@ export const authOptions: NextAuthOptions = {
 };
 
 export default NextAuth(authOptions);
+
+export const getSession = async (options: { req: any; res: any }) => {
+  return getServerSession(options.req, options.res, authOptions);
+};

@@ -4,7 +4,7 @@ import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@workspace/ui/components/sonner";
-import { trpc, trpcClient } from "../lib/trpc";
+import { trpc, trpcClient } from "@workspace/api/src/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 
