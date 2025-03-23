@@ -1,9 +1,10 @@
-import React from "react";
+"use client";
 
-type Props = {};
+import { trpc } from "@/lib/trpc";
 
-function page({}: Props) {
-  return <div>page</div>;
+export default function Home() {
+  const { data, isLoading } = trpc.userList.useQuery("Jenil");
+
+  if (isLoading) return <div>Loading...</div>;
+  return <div>{data}</div>;
 }
-
-export default page;
