@@ -22,17 +22,19 @@ enum Provider {
 }
 
 model User {
-  id            Int        @id @default(autoincrement())
-  email         String     @unique
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
   name          String?
   password      String? // Optional because OAuth users might not have a password
   image         String? // Profile image URL
   emailVerified DateTime?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime?  @updatedAt
-  isActive      Boolean    @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?     @updatedAt
+  isActive      Boolean       @default(true)
   userRoles     UserRole[]
-  provider      Provider   @default(GOOGLE)
+  provider      Provider      @default(GOOGLE)
+  groups        GroupMember[]
+  transactions  Transaction[] @relation("CreatedTransactions")
 }
 
 model Role {
@@ -55,4 +57,81 @@ model UserRole {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, roleId])
+}
+
+model Group {
+  id           Int                  @id @default(autoincrement())
+  name         String
+  description  String?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  members      GroupMember[]
+  transactions Transaction[]
+  balances     GroupMemberBalance[]
+}
+
+model GroupMember {
+  id                       Int                      @id @default(autoincrement())
+  group                    Group                    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId                  Int
+  user                     User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                   Int
+  joinedAt                 DateTime                 @default(now())
+  isAdmin                  Boolean                  @default(false)
+  owedBalances             GroupMemberBalance[]     @relation("Owed")
+  owingBalances            GroupMemberBalance[]     @relation("Owing")
+  paidTransactions         Transaction[]            @relation("PaidByMember")
+  participatedTransactions TransactionParticipant[]
+
+  @@unique([groupId, userId])
+  @@index([userId]) // Optimize queries for user's groups
+}
+
+model GroupMemberBalance {
+  id             Int         @id @default(autoincrement())
+  group          Group       @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId        Int
+  owedBy         GroupMember @relation("Owing", fields: [owedByMemberId], references: [id], onDelete: Cascade)
+  owedByMemberId Int
+  owedTo         GroupMember @relation("Owed", fields: [owedToMemberId], references: [id], onDelete: Cascade)
+  owedToMemberId Int
+  amount         Decimal     @default(0) @db.Decimal(10, 2)
+  lastUpdated    DateTime    @updatedAt
+
+  @@unique([groupId, owedByMemberId, owedToMemberId])
+  @@index([groupId])
+  @@index([owedByMemberId])
+  @@index([owedToMemberId])
+}
+
+model Transaction {
+  id             Int                      @id @default(autoincrement())
+  description    String
+  amount         Decimal                  @db.Decimal(10, 2)
+  group          Group                    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId        Int
+  createdBy      User                     @relation("CreatedTransactions", fields: [createdById], references: [id])
+  createdById    Int
+  paidBy         GroupMember              @relation("PaidByMember", fields: [paidByMemberId], references: [id])
+  paidByMemberId Int
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+  participants   TransactionParticipant[]
+
+  @@index([groupId, createdAt(sort: Desc)])
+  @@index([createdById])
+  @@index([paidByMemberId])
+}
+
+model TransactionParticipant {
+  id            Int         @id @default(autoincrement())
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  transactionId Int
+  member        GroupMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  memberId      Int
+  splitAmount   Decimal     @db.Decimal(10, 2)
+
+  @@unique([transactionId, memberId])
+  @@index([memberId])
+  @@index([transactionId])
 }

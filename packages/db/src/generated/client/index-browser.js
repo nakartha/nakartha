@@ -147,6 +147,49 @@ exports.Prisma.UserRoleScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GroupScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GroupMemberScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  userId: 'userId',
+  joinedAt: 'joinedAt',
+  isAdmin: 'isAdmin'
+};
+
+exports.Prisma.GroupMemberBalanceScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  owedByMemberId: 'owedByMemberId',
+  owedToMemberId: 'owedToMemberId',
+  amount: 'amount',
+  lastUpdated: 'lastUpdated'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  amount: 'amount',
+  groupId: 'groupId',
+  createdById: 'createdById',
+  paidByMemberId: 'paidByMemberId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TransactionParticipantScalarFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  memberId: 'memberId',
+  splitAmount: 'splitAmount'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -182,7 +225,12 @@ exports.Provider = exports.$Enums.Provider = {
 exports.Prisma.ModelName = {
   User: 'User',
   Role: 'Role',
-  UserRole: 'UserRole'
+  UserRole: 'UserRole',
+  Group: 'Group',
+  GroupMember: 'GroupMember',
+  GroupMemberBalance: 'GroupMemberBalance',
+  Transaction: 'Transaction',
+  TransactionParticipant: 'TransactionParticipant'
 };
 
 /**
