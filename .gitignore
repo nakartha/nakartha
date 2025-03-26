@@ -4,6 +4,7 @@
 node_modules
 .pnp
 .pnp.js
+.cursor
 
 # Local env files
 .env
