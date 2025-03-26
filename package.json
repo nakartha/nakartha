@@ -15,7 +15,11 @@
     "clean:store": "pnpm store prune",
     "clean": "pnpm run clean:modules && pnpm run clean:store",
     "reset": "pnpm run clean && rm -rf node_modules pnpm-lock.yaml && pnpm install",
-    "install:clean": "pnpm run reset"
+    "install:clean": "pnpm run reset",
+    "test": "pnpm -F @workspace/e2e exec playwright test",
+    "test:debug": "pnpm -F @workspace/e2e exec playwright test --debug",
+    "test:headed": "pnpm -F @workspace/e2e exec playwright test --headed",
+    "test:report": "pnpm -F @workspace/e2e exec playwright show-report"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
